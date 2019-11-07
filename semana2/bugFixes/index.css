@@ -96,7 +96,12 @@ div img {
   *
   **/
 
-div:nth-child(2),
+img{
+    width: 100px;
+    height: 100px;
+}
+
+  div:nth-child(2),
 div:last-child {
     text-align: center;
 }

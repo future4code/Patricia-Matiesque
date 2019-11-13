@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  
+h1 {
+    background-color:#43484A;
+    padding: 10px 5px 10px 5px;
+    color: white;
+    text-align: center;
+}
+
+div:first-of-type {
+    background-color: #565A5C;
+}
+
+div:nth-of-type(2){
+    background-color: #696C6E;
+}
+
+div:nth-of-type(3){
+    background-color: #7B7F80;
+}
+div:nth-of-type(4){
+    background-color: #8E9192;
+}
+div:nth-of-type(5){
+    background-color: #A1A3A4;
+}
+div:nth-of-type(6){
+    background-color: #B4B5B6;
+}

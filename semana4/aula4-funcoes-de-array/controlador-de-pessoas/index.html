@@ -1,0 +1,56 @@
+    
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script defer src="index.js"></script>
+    <link href="index.css" rel="stylesheet" type="text/css">
+    <title>Document</title>
+</head>
+
+<body>
+    <main id="container">
+    <section id="sessaoControle">
+        <h1>Controlador de Despesas</h1>
+        <h4>Cadastrar Despesas</h4>
+        <form>
+        <label for="valor">Valor</label>
+        <input type="text" id="valor">
+        <p>Tipo(Casa, Alimentaçao, outros)</p>
+        <select name="controleDespesas" id="controleDespesas">
+            <option value="controleCasa">Casa</option>
+            <option value="controleAlimentacao">Alimentação</option>
+            <option value="controleTransporte">Transporte</option>
+        </select>
+        <label for="descricao">Descricao</label>
+        <input type="text" id="descricao">
+        <button onclick="botaoDespesas()" >Cadastrar Despesas</button>
+        </form> 
+    </section>
+    <section id="sessaoDespesas">
+        <h1>Despesas Detalhadas</h1>
+        <p>Tipo(Casa, Alimentaçao, outros)</p>
+        <select name="detalhesDespesas" id="detalhesDespesas">
+            <option value="detalheCasa">Casa</option>
+            <option value="detalhealimentacao">Alimentação</option>
+            <option value="detalhetransporte">Transporte</option>
+        </select>
+        <label for="valorMinimo">Valor Minimo</label>
+        <input type="text" id="valorMinimo">
+        <label for="valorMaximo">Valor Maximo</label>
+        <input type="text" id="valorMaximo">
+        <button onclick="filtrarDespesas" >Filtrar</button>
+        <button onclick="limparFiltros" >Limpar Filtros</button>
+    </section>
+    <section id="Extrato">
+        <h1>Extrato</h1>
+        <h4>Valor Total</h4>
+        
+    </section>
+</main>
+</body>
+
+</html>

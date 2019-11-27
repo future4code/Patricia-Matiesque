@@ -1,0 +1,10 @@
+.conteudoBigCard{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    border: 1px solid black;
+    width: 200px;
+    align-items: center;
+    margin: 10px;
+
+}

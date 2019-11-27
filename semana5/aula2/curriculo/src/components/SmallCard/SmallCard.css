@@ -1,0 +1,11 @@
+.conteudoSmallCard > img{
+    width: 30px;
+}
+.conteudoSmallCard{
+    border: 1px solid black;
+    margin: 10px;
+    
+}
+.conteudoSmallCard >p{
+    width: 50px;
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from "react";
 import styled from 'styled-components';
 import { addTaskAction } from "../../actions"
 import { connect } from "react-redux";
@@ -18,35 +18,63 @@ const ListText = styled.div`
 
 `
 
-onChangeInput = event => {
-  addTask({taskList: event.target.value});
-  console.log(onChangeInput)
-};
+class MainSection extends Component {
+  constructor(props) {
+    super(props);
 
-function MainSection() {
+    this.state = {
+      postValue: ""
+    };
+  }
+
+  onChangeInput = event => {
+    this.setState({ postValue: event.target.value });
+  };
+
+  onCreateTask = () => {
+    const newtask = {
+      id: new Date().getTime(),
+      text: this.state.postValue
+    }
+    this.props.addTask(newtask)
+
+  }
   
-  return (
-    
-    <div>
-      <Text>
-        <input onChange={onChangeInput} type="text" placeholder="O que tem que ser feito?" />
-      </Text>
-      <ListText>
+  keyPressed = (event) => {
+    if (event.key === "Enter") {
+      this.onCreateTask()
+    }
+  }
+
+  render() {
+    return (
+
+      <div>
+        <Text>
+          <input 
+          value={this.state.postValue} 
+          onChange={this.onChangeInput} 
+          onKeyPress={this.keyPressed}
+          type="text" placeholder="O que tem que ser feito?" />
+        </Text>
+        <ListText>
           <input type="checkbox" />
           <li>
-          <span></span>
+            <span ></span>
           </li>
           <span>X</span>
-      </ListText>
-    </div>
-  );
+        </ListText>
+      </div>
+    );
+  }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     taskList: state.listTask.taskList,
-//   };
-// };
+
+const mapStateToProps = state => {
+  return {
+    taskList: state.listTask.taskList,
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {

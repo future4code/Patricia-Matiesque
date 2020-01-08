@@ -1,6 +1,5 @@
 const initialState = {
     taskList: [],
-    id: new Date().getTime()
   };
   
   const listTask = (state = initialState, action) => {

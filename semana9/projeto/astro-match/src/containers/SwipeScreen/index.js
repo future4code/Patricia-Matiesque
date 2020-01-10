@@ -9,6 +9,8 @@ import {swipeLeft, swipeRight} from '../../components/UserSwipeCard/styled'
 import {updateCurrentPage} from '../../actions/route'
 import {Loader} from '../../components/Loader'
 import { fetchProfileToSwipe } from '../../actions/profiles'
+import { choosePerson } from '../../actions/profiles'
+
 
 export class SwipeScreen extends Component {
 	constructor(props) {
@@ -72,10 +74,10 @@ export class SwipeScreen extends Component {
 }
 
 SwipeScreen.propTypes = {
-	// goToMatchScreen: PropTypes.func.isRequired,
+	goToMatchScreen: PropTypes.func.isRequired,
 	chooseProfile: PropTypes.func.isRequired,
-	// getProfileToSwipe: PropTypes.func.isRequired,
-	// profileToSwipe: PropTypes.object,
+	getProfileToSwipe: PropTypes.func.isRequired,
+	profileToSwipe: PropTypes.object,
 }
 
 const mapStateToProps = (state) => ({
@@ -86,7 +88,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
 	return {
 		goToMatchScreen: () => dispatch(updateCurrentPage('MatchScreen')),
-		getProfileToSwipe: () => dispatch(fetchProfileToSwipe())
+		getProfileToSwipe: () => dispatch(fetchProfileToSwipe()),
+		chooseProfile: (id, option) => dispatch(choosePerson(id, option))
 	}
 }
 

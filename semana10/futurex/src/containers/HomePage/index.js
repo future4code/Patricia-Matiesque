@@ -5,7 +5,7 @@ import { routes } from "../Router";
 
 function Home (props) {
     return (
-        <div></div>
+        <div>home</div>
     );
   }
   

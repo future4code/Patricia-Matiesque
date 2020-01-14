@@ -9,7 +9,7 @@ import ApplicationForm from "../ApplicationForm";
 import TripsDatails from "../TripDetailsPage";
 
 
-const routes = {
+export const routes = {
   home: "/home",
   applicationForm: "/applicationForm",
   login: "/",
@@ -24,12 +24,12 @@ function Router(props) {
   return (
     <ConnectedRouter history={props.history}>
       <Switch>
-        <Route path={routes.home} component={Home} />
-        <Route path={routes.applicationForm} component={ApplicationForm} />
-        <Route path={routes.login} component={LoginPage} />
-        <Route path={routes.list} component={ListTrips} />
-        <Route path={routes.createTrip} component={CreateTrip} />
-        <Route path={routes.details} component={TripsDatails} />
+        <Route path={routes.home} component={Home} exact/>
+        <Route path={routes.applicationForm} component={ApplicationForm} exact/>
+        <Route path={routes.login} component={LoginPage} exact/>
+        <Route path={routes.list} component={ListTrips} exact/>
+        <Route path={routes.createtrip} component={CreateTrip} exact/>
+        <Route path={routes.details} component={TripsDatails} exact/>
  
       </Switch>
     </ConnectedRouter>

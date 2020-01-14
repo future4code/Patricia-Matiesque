@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 function CreateTrip (props) {
     return (
-        <div></div>
+        <div>create trip</div>
     );
   }
   

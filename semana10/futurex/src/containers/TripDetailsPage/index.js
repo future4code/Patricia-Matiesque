@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 function TripsDatails (props) {
     return (
-      <div></div>
+      <div>details</div>
     );
   }
   

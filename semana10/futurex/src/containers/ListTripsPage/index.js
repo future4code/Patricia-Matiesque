@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import {getTrip} from '../../action'
+import { getTrip } from '../../action'
 
 
 
@@ -12,9 +12,7 @@ class ListTrips extends React.Component {
     }
 
     render(){
-        console.log(this.props.trips)
-        console.log(this.props.getTrip)
-
+    
     return (
         <div>
             <h1>Lista Viagens</h1>

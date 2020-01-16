@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getTrip } from '../../action'
+import { createTrip } from '../../action'
+import { push, replace, goBack } from "connected-react-router";
+import { routes } from "../Router";
 
 const formApplication = [
     {
@@ -34,37 +36,43 @@ const formApplication = [
   ];
 
 class ApplicationForm extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            form:{}
-        }
+  constructor(props){
+    super(props);
+      this.state = {
+        form:{}
+      }
     }
 
-    componentDidMount(){
-        this.props.fetchTrips()
-    }
 
+handleInputChange = event => {
+  const { name, value } = event.target;
+  this.setState({ form: { ...this.state.form, [name]: value } });
+};
+  
+handleOnSubmit = event => {
+  event.preventDefault();
+  console.log(this.state.form)
+  this.props.submitApplicationForm(this.state.form)
+
+};
 
 render() {
-    console.log(this.props.trips)
-
     return (
-        <form onSubmit={this.handleOnSubmit}>
-            {formApplication.map(input => (
-            <div key={input.name}>
-            <label htmlFor={input.name}>{input.label}: </label>
-            <input
-            id={input.name}
-            name={input.name}
-            type={input.type}
-            value={this.state.form[input.name] || ""}
-            required={input.required}
-            onChange={this.handleInputChange}
-            pattern={input.pattern}
-            />
-           </div>
-            ))}
+      <form onSubmit={this.handleOnSubmit}>
+        {formApplication.map(input => (
+        <div key={input.name}>
+        <label htmlFor={input.name}>{input.label}: </label>
+        <input
+          id={input.name}
+          name={input.name}
+          type={input.type}
+          value={this.state.form[input.name] || ""}
+          required={input.required}
+          onChange={this.handleInputChange}
+          pattern={input.pattern}
+       />
+        </div>
+        ))}
         <label htmlFor="paises">País:</label>
         <select name="paises" id="paises">
             <option value="Brasil" selected="selected">Brasil</option>
@@ -318,26 +326,28 @@ render() {
             <option value="Zimbabwe">Zimbabwe</option>
             <option value="Zâmbia">Zâmbia</option>
         </select>  
-
         <label htmlFor="optionTrips">Escolha sua viagem </label>
         <select id="optionTrips">
         {this.props.trips.map((trip) =>
-                <option value={trip.id} >{trip.name}</option>
-            )}
+          <option value={trip.id} >{trip.name}</option>
+          )}
         </select>  
         <button type="submit">Enviar</button>
-        </form>
-        );
+        <button onClick={this.props.goToHome}>Voltar</button>
+      </form>        
+    );
     }
 }
   
-const mapStateToProps = state => ({
-    trips: state.trips.allTrips
+const mapStateToProps = state => ({ 
+  trips: state.trips.allTrips
 })  
 
 const mapDispatchToProps = dispatch => ({
-    fetchTrips: () => dispatch(getTrip())
-  });
+  goToHome: () => dispatch(push(routes.home)),
+  submitApplicationForm: (name, age, applicationText, profession, country) => dispatch(createTrip(name, age, applicationText, profession, country))
 
-  export default connect(mapStateToProps, mapDispatchToProps)(ApplicationForm);
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ApplicationForm);
   

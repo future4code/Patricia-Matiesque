@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getTrip } from '../../action'
-
+import { routes } from "../Router";
+import { push, replace, goBack } from "connected-react-router";
 
 
 class ListTrips extends React.Component {
@@ -19,6 +20,10 @@ class ListTrips extends React.Component {
             {this.props.trips.map((trip) =>
             <p>{trip.name}</p>  
             )}
+        <button onClick={this.props.goToCreateTrip}>Cadastrar Trip</button>
+        <button onClick={this.props.goToTripDetails}>Aprovar</button>
+        <button onClick={this.props.goToLoginPage}>Voltar</button>
+
         </div>
     );
    }
@@ -29,7 +34,10 @@ class ListTrips extends React.Component {
   })
 
   const mapDispatchToProps = dispatch => ({
-    fetchTrips: () => dispatch(getTrip())
+    fetchTrips: () => dispatch(getTrip()),
+    goToCreateTrip: () => dispatch(push(routes.createTrip)),
+    goToTripDetails: () => dispatch(push(routes.details)),
+    goToLoginPage: () => dispatch(push(routes.login)),
   });
 
   export default connect(mapStateToProps, mapDispatchToProps)(ListTrips);

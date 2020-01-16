@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { routes } from "../Router";
+import { push } from "connected-react-router";
 
 
 const formTrip = [
@@ -42,9 +44,15 @@ class CreateTrip extends Component {
         }
     }
 
+
+  handleCreatTrip = () =>{
+    const {name, planet, date, description, durationInDays} = this.state.form
+    console.log(this.state.form)
+    this.props.createTrip(name, planet, date, description, durationInDays)   
+  }  
     render(){
     return (
-    <form onSubmit={this.handleOnSubmit}>
+    <form>
             {formTrip.map(input => (
             <div key={input.name}>
             <label htmlFor={input.name}>{input.label}: </label>
@@ -61,20 +69,27 @@ class CreateTrip extends Component {
             ))}
         <label htmlFor="planet">Planeta:</label>
         <select id="planet">
-            <option>Mercúrio</option>
-            <option>Vênus</option>
-            <option>Terra</option>
-            <option>Marte</option>
-            <option>Júpiter</option>
-            <option>Saturno</option>
-            <option>Urano</option>
-            <option>Netuno</option>
+            <option value="Mercúrio">Mercúrio</option>
+            <option value="Vênus">Vênus</option>
+            <option value="Terra">Terra</option>
+            <option value="Marte">Marte</option>
+            <option value="Júpiter">Júpiter</option>
+            <option value="Saturno">Saturno</option>
+            <option value="Urano">Urano</option>
+            <option value="Netuno">Netuno</option>
         </select>
-        <button type="submit">Enviar</button>
+        <button onClick={this.handleCreatTrip}>Enviar</button>
+        <button onClick={this.props.goToTripList}>Voltar</button>
     </form>    
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  goToTripList: () => dispatch(push(routes.list)),
+  createTrip:(name, planet, date, description, durationInDays) => dispatch(createTrip(name, planet, date, description, durationInDays))
+});
+
  
-  export default connect(null, null)(CreateTrip);
+  export default connect(null, mapDispatchToProps)(CreateTrip);
   

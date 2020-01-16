@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import styled from "styled-components";
 import { routes } from "../Router";
+import { login } from "../../action/login"
 
 
 const LoginWrapper = styled.form`
@@ -31,6 +32,11 @@ class LoginPage extends Component {
     });
   };
 
+  handleLoginButton = () => {
+    const { email, password } = this.state;
+    this.props.login(email, password)
+  }
+
   render() {
     const { email, password } = this.state;
 
@@ -50,14 +56,18 @@ class LoginPage extends Component {
           label="Password"
           value={password}
         />
-        <Button>Login</Button>
+        <Button onClick={this.handleLoginButton}>Login</Button>
+        <Button onClick={this.props.goToHome}>Voltar</Button>
+
       </LoginWrapper>
     );
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  goToListTrips: () => dispatch(push(routes.ListTrips)),
+  login: (email, password) => dispatch(login(email, password)),
+  goToHome: () => dispatch(push(routes.home)),
+
 
 });
 

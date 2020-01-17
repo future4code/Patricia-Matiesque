@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createTrip } from '../../action'
+import { createCandidate } from '../../action'
 import { push, replace, goBack } from "connected-react-router";
 import { routes } from "../Router";
 
 const formApplication = [
     {
-      name: "username",
+      name: "name",
       type: "text",
       label: "Nome:",
       required: false,
@@ -16,21 +16,21 @@ const formApplication = [
       name: "age",
       type: "number",
       label: "Idade: ",
-      required: true,
+      required: false,
       minValue: 18,
     },
     {
-      name: "aplicationText",
+      name: "applicationText",
       type: "text",
       label: "Sou bom candidato por: ",
-      required: true,
+      required: false,
       minValue: 30
     },
     {
       name: "profession",
       type: "text",
       label: "Profissão",
-      required: true,
+      required: false,
       minValue: 10
     },
   ];
@@ -49,16 +49,16 @@ handleInputChange = event => {
   this.setState({ form: { ...this.state.form, [name]: value } });
 };
   
-handleOnSubmit = event => {
+handleCreateCandidate = (event) => {
   event.preventDefault();
-  console.log(this.state.form)
-  this.props.submitApplicationForm(this.state.form)
+  const {name, age, applicationText, profession, country, tripId} = this.state.form
+  this.props.createCandidate(name, age, applicationText, profession, country, tripId)
 
 };
 
 render() {
     return (
-      <form onSubmit={this.handleOnSubmit}>
+      <form>
         {formApplication.map(input => (
         <div key={input.name}>
         <label htmlFor={input.name}>{input.label}: </label>
@@ -73,8 +73,8 @@ render() {
        />
         </div>
         ))}
-        <label htmlFor="paises">País:</label>
-        <select name="paises" id="paises">
+        <label htmlFor="country">País:</label>
+        <select name="country" onChange={this.handleInputChange} value={this.state.form.country} id="country">
             <option value="Brasil" selected="selected">Brasil</option>
             <option value="Afeganistão">Afeganistão</option>
             <option value="África do Sul">África do Sul</option>
@@ -326,13 +326,16 @@ render() {
             <option value="Zimbabwe">Zimbabwe</option>
             <option value="Zâmbia">Zâmbia</option>
         </select>  
+
         <label htmlFor="optionTrips">Escolha sua viagem </label>
-        <select id="optionTrips">
+
+        <select name="tripId" onChange={this.handleInputChange} value={this.state.form.tripId} id="optionTrips">
         {this.props.trips.map((trip) =>
           <option value={trip.id} >{trip.name}</option>
           )}
         </select>  
-        <button type="submit">Enviar</button>
+
+        <button onClick={this.handleCreateCandidate}>Enviar</button>
         <button onClick={this.props.goToHome}>Voltar</button>
       </form>        
     );
@@ -345,7 +348,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   goToHome: () => dispatch(push(routes.home)),
-  submitApplicationForm: (name, age, applicationText, profession, country) => dispatch(createTrip(name, age, applicationText, profession, country))
+  createCandidate: (name, age, applicationText, profession, country, tripId) => dispatch(createCandidate(name, age, applicationText, profession, country, tripId))
 
 });
 

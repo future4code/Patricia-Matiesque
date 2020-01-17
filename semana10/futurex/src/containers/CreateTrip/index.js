@@ -2,36 +2,33 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { routes } from "../Router";
 import { push } from "connected-react-router";
-
+import { createTrip } from "../../action/index"
 
 const formTrip = [
     {
-      name: "username",
+      name: "name",
       type: "text",
       label: "Nome:",
       required: false,
-      pattern: "[A-Za-z]{5,}"
     },
     {
       name: "date",
       type: "date",
       label: "Data: ",
-      required: true,
+      required: false,
 
     },
     {
       name: "description",
       type: "text",
       label: "Descrição",
-      required: true,
-      minValue: 30
+      required: false,
     },
     {
       name: "durationInDays",
       type: "Number",
       label: "Duração",
-      required: true,
-      minValue: 50
+      required: false,
     },
   ];
 
@@ -44,10 +41,17 @@ class CreateTrip extends Component {
         }
     }
 
+  
+handleInputChange = event => {
+  const { name, value } = event.target;
+  this.setState({ form: { ...this.state.form, [name]: value } });
+};
 
-  handleCreatTrip = () =>{
+
+  handleCreateTrip = (event) =>{
+    event.preventDefault();
     const {name, planet, date, description, durationInDays} = this.state.form
-    console.log(this.state.form)
+    console.log(this.props.createTrip)
     this.props.createTrip(name, planet, date, description, durationInDays)   
   }  
     render(){
@@ -68,7 +72,7 @@ class CreateTrip extends Component {
            </div>
             ))}
         <label htmlFor="planet">Planeta:</label>
-        <select id="planet">
+        <select name = "planet" value={this.state.form.planet} onChange={this.handleInputChange} id="planet">
             <option value="Mercúrio">Mercúrio</option>
             <option value="Vênus">Vênus</option>
             <option value="Terra">Terra</option>
@@ -78,7 +82,7 @@ class CreateTrip extends Component {
             <option value="Urano">Urano</option>
             <option value="Netuno">Netuno</option>
         </select>
-        <button onClick={this.handleCreatTrip}>Enviar</button>
+        <button onClick={this.handleCreateTrip}>Enviar</button>
         <button onClick={this.props.goToTripList}>Voltar</button>
     </form>    
     );

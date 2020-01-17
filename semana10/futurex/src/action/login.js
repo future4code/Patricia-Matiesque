@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { push, replace, goBack } from "connected-react-router";
-import { routes } from "../Router";
+import { routes } from "../containers/Router";
 
 const baseURL = "https://us-central1-missao-newton.cloudfunctions.net/futureX/patricia/"
 

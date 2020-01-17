@@ -1,13 +1,16 @@
 import axios from 'axios'
 import { push, replace, goBack } from "connected-react-router";
-import { routes } from "../Router";
+import { routes } from "../containers/Router";
 
-const baseURL = "https://us-central1-missao-newton.cloudfunctions.net/futureX/patricia/"
-const axiosConfig = {
-  headers: {
-    auth: window.localStorage.getItem("token", response.data.token)
-  }
-}
+const baseURL = "https://us-central1-missao-newton.cloudfunctions.net/futureX/patricia/" 
+
+
+
+// const token = {
+//   headers:{
+//       'auth': window.localStorage.getItem("token")
+//   }
+// }
 
 const setTripAction = (trips) => {
     return {
@@ -42,6 +45,7 @@ export const getTripDetails = (tripId) => async (dispatch) => {
 
 //Nova Viagem
 export const createTrip = (name, planet, date, description, durationInDays) => async (dispatch) => {
+  const token = window.localStorage.getItem("token")
   const newTrip = {
     name: name,
     planet: planet,
@@ -49,17 +53,20 @@ export const createTrip = (name, planet, date, description, durationInDays) => a
     description: description,
     durationInDays: durationInDays
   }
+  console.log(token)
+
   try{
-  await axios.post (`${baseURL}apply`, newTrip , axiosConfig)
+  await axios.post (`${baseURL}trips`, newTrip , {headers:{
+    auth: token}
+})
   dispatch(push(routes.home))
   }catch(error){
     window.alert("Erro de criação")
   }
- 
 }
 
 //Novo Candidato
-export const createCandidate = (name, age, applicationText, profession, country) => async (dispatch) => {
+export const createCandidate = (name, age, applicationText, profession, country, tripId) => async (dispatch) => {
   const newCandidate = {
     name: name,
     age: age,
@@ -68,11 +75,9 @@ export const createCandidate = (name, age, applicationText, profession, country)
     country: country
 }
   try{
-  await axios.post (`${baseURL}apply`, newCandidate)
+  await axios.post (`${baseURL}trips/${tripId}/apply`, newCandidate)
     dispatch(push(routes.home))
   }catch(error){
     window.alert("Erro de criação")
   }
-  
-
 }

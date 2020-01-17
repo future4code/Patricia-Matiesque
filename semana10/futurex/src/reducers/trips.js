@@ -1,5 +1,7 @@
 const initialState = {
     allTrips:[],
+    candidate:[],
+    
 }
 
 const trips = (state = initialState, action) => {

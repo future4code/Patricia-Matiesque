@@ -31,7 +31,6 @@ class CriarTarefas extends React.Component {
         const { text, day } = this.state
         this.props.createTasks(text, day)
         this.setState({ text: "", day:"" })
-        console.log(text, day)
     }
 
 
@@ -62,3 +61,5 @@ const mapDispatchToProps = dispatch => ({
 
 
 export default connect(null, mapDispatchToProps)(CriarTarefas);
+
+

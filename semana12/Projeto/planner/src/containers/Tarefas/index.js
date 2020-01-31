@@ -12,31 +12,38 @@ const Container = styled.div`
 `
 
 class Tarefas extends React.Component {
-
   
   componentDidMount() {
     this.props.getTasks()
-    console.log(this.props.allTask)
 }
 
-  render() {
-    console.log(this.props.allTask)
+  render(){
+    const days = ["Segunda","Terça","Quarta","Quinta","Sexta","Sabado","Domingo"]
+
     return(
-    <Container>
-      <h2>Lista de Tarefas</h2>
-      <select>
+      <Container>
+              <h2>Lista de Tarefas</h2>
+      {days.map(day =>(
+            <div>
+            <h2>{day}</h2>
+                <ul>{
+                this.props.allTask.filter(
+                  task => task.day === day
+                  ).map(
+                  task => <li>{task.text}</li>
+                  )}
+                </ul>
+            </div>
+      ))}
 
-      {this.props.allTask.map((task) => 
-      <option>{task.day}</option>
-      )}
-      </select>
 
-  
-    
-      </Container>   
-    
-  )}
+      </Container>
+
+    )
+  }
 }
+
+
 
 const mapStateToProps = state => ({
   allTask: state.task.allTask

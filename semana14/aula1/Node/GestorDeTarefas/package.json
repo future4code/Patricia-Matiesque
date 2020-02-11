@@ -1,0 +1,16 @@
+{
+  "name": "gestor-de-tarefas",
+  "version": "1.0.0",
+  "description": "tarefas do dia a dia",
+  "main": "gestorDeTarefas.js",
+  "scripts": {
+    "start": "node gestorDeTarefas.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "dia",
+    "tarefas"
+  ],
+  "author": "Patricia",
+  "license": "ISC"
+}

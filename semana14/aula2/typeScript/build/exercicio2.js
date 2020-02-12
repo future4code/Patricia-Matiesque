@@ -26,4 +26,5 @@ const filtrarAutor = (arrayPosts, autor) => {
     return filtroPosts;
 };
 const filtroPost = filtrarAutor(arrayPosts, "Patricia");
+console.log(filtroPost);
 //# sourceMappingURL=exercicio2.js.map

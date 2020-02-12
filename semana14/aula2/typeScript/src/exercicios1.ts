@@ -1,4 +1,4 @@
-const arr: number[] = [1, 2, 3]
+const arr: number[] = [1, 2, 3, 4, 5, 6, 7]
 
 type dados = {
     quantidadeNumeros: number,
@@ -7,21 +7,20 @@ type dados = {
 }
 
 const calcularNumeros = (arr: number[]): dados => {
+    let totalDeNumerosImpares: number = 0;
     for (let i = 0; i < arr.length; i++) {
-        if (i % 2 !== 0) {
-            console.log(i)
-        } else (i % 2 === 0) {
-            console.log(i)
-        }
+        if (arr[i] % 2 !== 0) {
     }
+}
 
     const respostas: dados = {
         quantidadeNumeros: arr.length,
-        quantidadeImpares: 0,
+        quantidadeImpares: totalDeNumerosImpares,
         somaArray: 0,
     }
     return respostas
 }
+
 
 const resultados: dados = calcularNumeros(arr)
 console.log(resultados)

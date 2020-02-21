@@ -18,7 +18,7 @@ export class ClientManager {
 
     public printCellBilss(){
         this.clients.forEach((client) => {
-            console.log(client.clientNumber = "-" + client.clientName + "-" + client.calculateBill())
+            console.log(client.clientNumber + "-" + client.clientName + "-" + client.calculateBill())
         })
     }
 

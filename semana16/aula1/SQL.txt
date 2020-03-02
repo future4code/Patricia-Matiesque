@@ -1,0 +1,88 @@
+1.
+USE exercicios;
+DESCRIBE actors;
+
+A.
+SELECT first_name, last_name
+FROM actors
+WHERE last_name like "%a%"
+;
+
+B.
+SELECT last_name
+FROM actors
+WHERE first_name = "Dan" OR first_name = "Julia"
+;
+
+C.
+SELECT first_name, last_name
+FROM actors
+WHERE first_name = "ANGELINA" OR first_name LIKE "%b%"
+;
+
+
+USE `bouman-patricia`;
+
+CREATE TABLE patricia(
+id int PRIMARY KEY,
+first_name varchar(45) NOT NULL,
+last_name varchar(45) NOT NULL
+);
+
+INSERT INTO patricia(id, first_name, last_name)
+VALUES (1, "Patricia", "Matiesque"),
+	   (2, "Pedro", "Matiesque");
+
+
+
+2.
+USE exercicios;
+DESCRIBE films;
+
+A.
+SELECT title, description 
+FROM films
+WHERE length > 120
+;
+
+B.
+SELECT description, release_year, rating 
+FROM films
+WHERE description LIKE "%Documentary%"
+;
+
+C.
+SELECT title, release_year, special_features 
+FROM films
+WHERE rating = "NC-17" OR title = "a%"
+;
+
+D.
+SELECT film_id, title, description, release_year, length, rating, special_features 
+FROM films
+WHERE special_features = "Trailers" AND rating = "PG-13" AND title LIKE "%d%"
+;
+
+
+USE `bouman-patricia`;
+describe films;
+
+CREATE TABLE films(
+film_id int PRIMARY KEY,
+title varchar(128) NOT NULL,
+description varchar(255),
+release_year YEAR(4),
+length int,
+rating varchar(128),
+special_features varchar(128)
+);
+
+INSERT INTO films(film_id, title, description, release_year, length, rating, special_features )
+VALUES (1, "Filme1", "Descrição1", 2000, 100, "G", "Trailers"),
+	   (2, "Filme2", "Descrição2", 2001, 110, "PG", "Commentaries"),
+       (3, "Filme3", "Descrição3", 2002, 120, "PG-13", "Trailers"),
+       (4, "Filme4", "Descrição4", 2003, 130, "R", "Commentaries"),
+       (5, "Filme5", "Descrição5", 2004, 140, "NC-17", "Trailers")
+
+       
+

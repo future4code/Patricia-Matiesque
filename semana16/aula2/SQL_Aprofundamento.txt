@@ -1,0 +1,64 @@
+1.
+use exercicios;
+
+1.
+select *
+from city
+order by population desc
+limit 5
+
+2.
+select avg(population) from city;
+
+3.
+select count(name), district
+from city
+group by district
+order by count(name) desc
+limit 200;
+
+4.
+select count(*), countryCode
+from city
+group by countryCode
+order by count(countryCode) desc
+limit 10;
+
+2.
+1.
+select *
+from country
+order by population desc
+limit 100
+
+2.
+SELECT COUNT(*)
+FROM country
+WHERE population < 5000000;
+
+3.
+SELECT sum(population) as "Soma de população"
+from country
+where continent = "Asia";
+
+4.
+SELECT COUNT(*), GovernmentForm
+FROM country
+WHERE GovernmentForm like "%Republic%" OR GovernmentForm like "%Monarchy%"
+group by GovernmentForm;
+
+5.
+SELECT count(*), max(governmentForm)
+FROM country
+ORDER BY governmentForm;
+
+6.
+select avg(population), continent
+from country
+group by continent
+ORDER BY avg(population) ASC;
+
+
+
+
+

@@ -1,0 +1,50 @@
+use `bouman-patricia`;
+
+CREATE TABLE livros (
+ id INT,
+ titulo VARCHAR(255),
+ autor VARCHAR(255),
+ editora VARCHAR(255),
+ ano year,
+ PRIMARY KEY (id)
+);
+
+CREATE TABLE autores (
+ id INT,
+ primeiro_nome VARCHAR(255),
+ ultimo_nome VARCHAR(255),
+ PRIMARY KEY (id)
+);
+
+CREATE TABLE editoras (
+ id INT,
+ nome VARCHAR(255),
+ cidade VARCHAR(255),
+ data_fundacao date,
+ PRIMARY KEY (id)
+);
+
+CREATE TABLE usuarios (
+ id INT,
+ primeiro_nome VARCHAR(255),
+ ultimo_nome VARCHAR(255),
+ nacionalidade VARCHAR(255),
+ data_nascimento date,
+ PRIMARY KEY (id)
+);
+
+ALTER TABLE livros
+ADD CONSTRAINT FK_livros_autores FOREIGN KEY (id)REFERENCES autores(id),
+ADD CONSTRAINT FK_livros_editoras FOREIGN KEY (id)REFERENCES editoras(id);
+
+CREATE TABLE usuarios_livros (
+ usuario_id INT,
+ livro_id INT,
+ PRIMARY KEY (usuario_id, livro_id),
+ FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+ FOREIGN KEY (livro_id) REFERENCES livros(id)
+);
+
+ALTER TABLE livros CHANGE autor autor_id int;
+ALTER TABLE livros CHANGE editora editora_id int;
+

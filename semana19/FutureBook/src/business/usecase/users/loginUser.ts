@@ -1,36 +1,28 @@
 import { UserGateway } from "../../gateways/userGateway";
-import * as bcrypt from "bcrypt";
-import * as jwt from "jsonwebtoken";
+import { AuthenticationGateway } from "../../gateways/authenticationGateway";
+import { CryptographyGateway } from "../../gateways/cryptographyGateway";
 
 export class LoginUserUC {
-  constructor(private userGateway: UserGateway) {}
+  constructor(
+    private userGateway: UserGateway,
+    private authenticationGateway: AuthenticationGateway,
+    private cryptographyGateway: CryptographyGateway
+  ) { }
 
   public async execute(input: LoginUserUCInput) {
-    const user = await this.userGateway.loginUser(input.email);
+    const user = await this.userGateway.getUserByEmail(input.email);
 
     if (!user) {
-      throw new Error("Email incorreto");
+      throw new Error("Usuario não encontrado");
     }
 
-    const isPaswordCorrect = await bcrypt.compare(
-      input.password,
-      user.getPassword()
-    );
-    console.log(input.password)
-    console.log(user.getPassword())
+    if (!await this.cryptographyGateway.compare(input.password, user.getPassword())) {
+      throw new Error("Senha ou Email incorreto")
+    }
 
-    if(!isPaswordCorrect) {
-      throw new Error("Senha incorreta");
-    }  
-
-
-    const token = jwt.sign(
-      { userId: user.getId(), email: user.getEmail() },
-      "lalala",
-      {
-        expiresIn: "1h"
-      }
-    );
+    const token = this.authenticationGateway.generateToken({
+      userId: user.getId()
+    });
 
     return token;
   }

@@ -5,8 +5,7 @@ import { DuplicateUserError } from "../business/Error/DuplicateUserError";
 
 export class PostDB extends BaseDB implements PostGateway {
     private postTableName = "post";
-    private userTableName = "users";
-    private relationTableName = "friend_user";
+    private likeTableName = "likePost";
 
     async createPost(post: Post) {
         try {
@@ -18,8 +17,6 @@ export class PostDB extends BaseDB implements PostGateway {
                     creationDate: post.getCreationDate(),
                     postType: post.getPostType(),
                     userId: post.getUserId(),
-
-
                 })
                 .into(this.postTableName);
         } catch (err) {
@@ -31,4 +28,36 @@ export class PostDB extends BaseDB implements PostGateway {
         }
     }
 
+    async likePost(user_id: string, post_id: string): Promise<void> {
+        try {
+            await this.connection.raw(`
+       INSERT INTO ${this.likeTableName}
+       (\`user_id\`, \`post_id\`)
+       values ('${user_id}','${post_id}');`);
+        } catch (err) {
+            console.log(err)
+            if (err.code === 'ER_DUP_ENTRY') {
+                throw new Error("Usuario ja curtido")
+            } else {
+                throw err
+            }
+        }
+    }
+
+    public async dislikePost(user_id: string, post_id: string): Promise<void> {
+        try {
+            await this.connection.raw(`
+        DELETE FROM ${this.likeTableName} 
+        WHERE user_id = '${user_id}'
+        AND post_id = '${post_id}'
+        `)
+        } catch (err) {
+            console.log(err)
+            if (err.code === 'ER_DUP_ENTRY') {
+                throw new Error("Usuario ja descurtido")
+            } else {
+                throw err
+            }
+        }
+    }
 }

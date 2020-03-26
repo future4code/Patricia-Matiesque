@@ -53,7 +53,7 @@ export class UserDB extends BaseDB implements UserGateway {
       }
     }
   }
-
+ 
   public async deleteFriendRelation(user_id: string,friend_id: string): Promise<void> {
     await this.connection.raw(`
     DELETE FROM friend_user 

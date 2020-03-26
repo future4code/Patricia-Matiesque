@@ -1,24 +1,19 @@
 import { Request, Response } from "express";
 import { UserDB } from "../../../data/userDataBase";
-import { JWTAuthentication } from "../../../utils/JWTAuthentication";
 import { DeleteFriendUC } from "../../../business/usecase/users/deleteFriend";
+import { JwtAuthorizer } from "../../../services/jwtAuthorizer";
 
 export const deleteFriendEndpoint = async (req: Request, res: Response) => {
   try {
-    const jwtAuth = new JWTAuthentication();
+    const uc = new DeleteFriendUC(new UserDB());
+    const token = req.headers.auth as string;
+    const jwtAuthorizer = new JwtAuthorizer();
+    const userInfo = jwtAuthorizer.getUsersInfoFromToken(token);
 
-    const userDataBase = new UserDB();
-
-    const userId = jwtAuth.verifyToken(req.headers.auth as string);
-
-    const useCase = new DeleteFriendUC(userDataBase);
-
-    const input = {
-      userId,
+    await uc.execute({
+      userId: userInfo.userId,
       friend_id: req.body.friend_id
-    };
-    
-    await useCase.execute(input);
+    });
     res.send({
       message: "User delete Successfully"
     });

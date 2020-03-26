@@ -4,6 +4,10 @@ import { loginUserEndpoint } from "./endpoints/users/loginUser";
 import { followUserEndpoint } from "./endpoints/users/followUser";
 import { deleteFriendEndpoint } from "./endpoints/users/deleteFriend";
 import { createPostEndpoint } from "./endpoints/post/createPost";
+import { getFeedForUserEndpoint } from "./endpoints/feed/getFeedForUser";
+import { getFeedTypeEndpoint } from "./endpoints/feed/getFeedType";
+import { LikePostEndpoint } from "./endpoints/post/likePost";
+import { dislikePostEndpoint } from "./endpoints/post/dislikePost";
 
 
 const app = express();
@@ -17,6 +21,14 @@ app.delete("/delete/friend", deleteFriendEndpoint);
 
 
 app.post("/createPost", createPostEndpoint);
+app.post("/likepost", LikePostEndpoint);
+app.delete("/dislike", dislikePostEndpoint);
+
+
+
+app.get("/feed", getFeedForUserEndpoint);
+app.get("/feedtype", getFeedTypeEndpoint);
+
 
 
 export default app;

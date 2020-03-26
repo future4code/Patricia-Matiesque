@@ -1,21 +1,21 @@
 import { Request, Response } from "express";
-import { FollowUserUC } from "../../../business/usecase/users/followUser";
-import { UserDB } from "../../../data/userDataBase";
 import { JwtAuthorizer } from "../../../services/jwtAuthorizer";
+import { DislikePostUC } from "../../../business/usecase/post/dislikePost";
+import { PostDB } from "../../../data/postDataBase";
 
-export const followUserEndpoint = async (req: Request, res: Response) => {
+export const dislikePostEndpoint = async (req: Request, res: Response) => {
   try {
-    const uc = new FollowUserUC(new UserDB());
+    const uc = new DislikePostUC(new PostDB());
     const token = req.headers.auth as string;
     const jwtAuthorizer = new JwtAuthorizer();
     const userInfo = jwtAuthorizer.getUsersInfoFromToken(token);
 
     await uc.execute({
       userId: userInfo.userId,
-      friend_id: req.body.friend
+      post_id: req.body.post
     });
     res.send({
-      message: "User Followed Successfully"
+      message: "User dislike Successfully"
     });
   } catch (err) {
     console.log(err);

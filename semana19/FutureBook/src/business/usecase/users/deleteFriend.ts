@@ -1,7 +1,7 @@
 import { UserGateway } from "../../gateways/userGateway";
 
 export class DeleteFriendUC {
-  constructor(private usergateway: UserGateway) {}
+  constructor(private usergateway: UserGateway) { }
 
   async execute(input: DeleteFriendInput) {
     await this.usergateway.deleteFriendRelation(

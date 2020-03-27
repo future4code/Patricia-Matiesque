@@ -29,35 +29,29 @@ export class PostDB extends BaseDB implements PostGateway {
     }
 
     async likePost(user_id: string, post_id: string): Promise<void> {
-        try {
-            await this.connection.raw(`
+        await this.connection.raw(`
        INSERT INTO ${this.likeTableName}
        (\`user_id\`, \`post_id\`)
-       values ('${user_id}','${post_id}');`);
-        } catch (err) {
-            console.log(err)
-            if (err.code === 'ER_DUP_ENTRY') {
-                throw new Error("Usuario ja curtido")
-            } else {
-                throw err
-            }
-        }
+       values ('${user_id}','${post_id}');
+       `)
     }
 
     public async dislikePost(user_id: string, post_id: string): Promise<void> {
-        try {
-            await this.connection.raw(`
+        await this.connection.raw(`
         DELETE FROM ${this.likeTableName} 
         WHERE user_id = '${user_id}'
         AND post_id = '${post_id}'
         `)
-        } catch (err) {
-            console.log(err)
-            if (err.code === 'ER_DUP_ENTRY') {
-                throw new Error("Usuario ja descurtido")
-            } else {
-                throw err
-            }
-        }
     }
+
+    public async commentPost(id: string, userId: string, postId: string, comment: string): Promise<void> {
+        await this.connection.raw(`
+            INSERT INTO commentPost 
+            (\`id\`, \`userid\`, \`postid\`, \`comment\`) 
+            values ('${id}','${userId}', '${postId}', '${comment}');
+        `)
+    }
+
+
+
 }

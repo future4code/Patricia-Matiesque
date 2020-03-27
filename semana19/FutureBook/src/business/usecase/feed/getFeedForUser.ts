@@ -2,7 +2,7 @@ import { FeedGateway } from "../../gateways/feedGateway";
 import { PostType } from "../../entities/post";
 
 export class GetFeedForUserUC {
-  constructor(private feedGateway: FeedGateway) {}
+  constructor(private feedGateway: FeedGateway) { }
 
   async execute(input: GetFeedInput): Promise<GetFeedOutput[]> {
     const post = await this.feedGateway.getFeedForUser(input.userId);

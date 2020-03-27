@@ -15,7 +15,7 @@ export const followUserEndpoint = async (req: Request, res: Response) => {
       friend_id: req.body.friend
     });
     res.send({
-      message: "User Followed Successfully"
+      message: "Seguido com sucesso"
     });
   } catch (err) {
     console.log(err);

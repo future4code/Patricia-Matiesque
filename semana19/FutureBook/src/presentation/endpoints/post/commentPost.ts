@@ -1,21 +1,22 @@
 import { Request, Response } from "express";
 import { JwtAuthorizer } from "../../../services/jwtAuthorizer";
-import { DislikePostUC } from "../../../business/usecase/post/dislikePost";
 import { PostDB } from "../../../data/postDataBase";
+import { CommentPostUC } from "../../../business/usecase/post/commentPost";
 
-export const dislikePostEndpoint = async (req: Request, res: Response) => {
+export const commentPostEndpoint = async (req: Request, res: Response) => {
   try {
-    const uc = new DislikePostUC(new PostDB());
+    const uc = new CommentPostUC(new PostDB());
     const token = req.headers.auth as string;
     const jwtAuthorizer = new JwtAuthorizer();
     const userInfo = jwtAuthorizer.getUsersInfoFromToken(token);
 
     await uc.execute({
       userId: userInfo.userId,
-      post_id: req.body.post
+      postId: req.body.post,
+      comment: req.body.comment
     });
     res.send({
-      message: "Descurtido com sucesso"
+      message: "Comentado com sucesso"
     });
   } catch (err) {
     console.log(err);

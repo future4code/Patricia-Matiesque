@@ -1,7 +1,7 @@
 import { PostGateway } from "../../gateways/postGateway";
 
 export class LikePostUC {
-  constructor(private postgateway: PostGateway) {}
+  constructor(private postgateway: PostGateway) { }
 
   async execute(input: LikePostInput) {
     await this.postgateway.likePost(

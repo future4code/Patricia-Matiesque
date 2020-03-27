@@ -15,7 +15,7 @@ export const LikePostEndpoint = async (req: Request, res: Response) => {
       post_id: req.body.post
     });
     res.send({
-      message: "User like Successfully"
+      message: "Curtido com sucesso"
     });
   } catch (err) {
     console.log(err);

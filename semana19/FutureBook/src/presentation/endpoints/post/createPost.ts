@@ -3,7 +3,6 @@ import { PostDB } from "../../../data/postDataBase";
 import { CreatePostUC } from "../../../business/usecase/post/createPost";
 import { JwtAuthorizer } from "../../../services/jwtAuthorizer";
 
-
 export const createPostEndpoint = async (req: Request, res: Response) => {
   try {
     const createPostUC = new CreatePostUC(new PostDB());
@@ -22,11 +21,10 @@ export const createPostEndpoint = async (req: Request, res: Response) => {
     res.send({
       message: "Post Criado"
     });
-    } catch (err) {
+  } catch (err) {
     res.status(400).send({
       message: err.message,
       ...err
     });
   }
 };
- 

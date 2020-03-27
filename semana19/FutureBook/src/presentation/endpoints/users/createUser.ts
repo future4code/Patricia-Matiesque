@@ -10,7 +10,7 @@ export const createUserEndpoint = async (req: Request, res: Response) => {
       new UserDB(),
       new JwtAuthorizer(),
       new BcryptService()
-      );
+    );
 
     const result = await createUserUC.execute({
       name: req.body.name,
@@ -26,4 +26,3 @@ export const createUserEndpoint = async (req: Request, res: Response) => {
     });
   }
 };
- 

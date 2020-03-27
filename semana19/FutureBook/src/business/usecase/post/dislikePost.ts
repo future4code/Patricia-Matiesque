@@ -1,7 +1,7 @@
 import { PostGateway } from "../../gateways/postGateway";
 
 export class DislikePostUC {
-  constructor(private postgateway: PostGateway) {}
+  constructor(private postgateway: PostGateway) { }
 
   async execute(input: DeleteFriendInput) {
     await this.postgateway.dislikePost(

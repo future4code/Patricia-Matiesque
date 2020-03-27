@@ -15,7 +15,7 @@ export const deleteFriendEndpoint = async (req: Request, res: Response) => {
       friend_id: req.body.friend_id
     });
     res.send({
-      message: "User delete Successfully"
+      message: "Deletado com sucesso"
     });
   } catch (err) {
     console.log(err);

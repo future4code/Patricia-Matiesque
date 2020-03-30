@@ -1,0 +1,19 @@
+1.
+2. bouman-futureECommerce3
+3. ssh -i ec2-future4.pem ubuntu@54.86.100.27
+4. 
+git clone https://github.com/future4code/bouman-futureECommerce3 - Clonando projeto
+ls - Listando projetos
+cd bouman-futureECommerce3 - Entrando na pasta do projeto
+cd my-app - Entrando na pasta do projeto
+npm install - Instala os pacotes pendentes
+npm start - Rodando o projeto na 3000
+5. Feito
+6. 
+npm run build
+cd build/
+sudo python -mSimpleHTTPServer 80
+7. 
+
+
+

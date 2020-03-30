@@ -1,4 +1,4 @@
-1.
+1. preciso clonar um repositorio dentro da maquina e build
 2. bouman-futureECommerce3
 3. ssh -i ec2-future4.pem ubuntu@54.86.100.27
 4. 
@@ -13,7 +13,14 @@ npm start - Rodando o projeto na 3000
 npm run build
 cd build/
 sudo python -mSimpleHTTPServer 80
-7. 
+7. Clonamos o repositorio e não foi necessario criar portas, ja estavam habilitadas.
 
 
+2.
+1. Lido
+2. Feito
+3. Ativada
+4. 
+-A senha não aparecer demorei para compreender
+-No comando sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf nçao foi mencionado que precisava sair do banco para executar
 

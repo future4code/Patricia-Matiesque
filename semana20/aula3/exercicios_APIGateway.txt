@@ -1,0 +1,73 @@
+Tarefa 1: Feita
+Tarefa 2.1:
+Entrada: 
+query: auth = key
+{
+    
+}
+(body vazio)
+Saída:  statusCode: 400
+    message: "Missing input!"
+Entrada:
+query: vazia
+{
+  "user": {
+    "name": "Teste",
+    "idade": 30
+  }
+}
+Saída:  statusCode: 400
+    erro "Missing input!"
+Entrada:
+query: auth = key
+{
+  "user": {
+    "name": "Teste",
+    "idade": 30
+  }
+}
+Saída: statusCode: 200
+       hasQuery: { auth = key }
+       hasBody: {
+          "user": {
+                 "name": "Teste",
+                 "idade": 30
+          }
+        }
+Tarefa 2.2:
+Porque é preciso transformar uma string em um objeto.
+Tarefa 2.3:
+Irá retornar 200 quando tiver um event.body e uma event.queryStringParameters.
+O valor será =   body: JSON.stringify({
+                hasBody,
+                hasQueries
+            })
+Tarefa 2.4:
+Irá retornar 400 quando não tiver um event.body ou uma event.queryStringParameters, e sem ambos.
+Tarefa 2.5:
+Testes feitos.
+Tarefa 3:
+const execute = (cep) => {
+  if (!cep) {
+    throw new Error("Está faltando informação");
+  }
+  
+  const regex = new RegExp(
+    "^\\d{5}[-]\\d{3}$"
+  );
+  
+  return regex.test(cep);
+};
+exports.handler = async event => {
+    const cep = event.cep;
+    
+    let validacao = false;
+    const result = execute(cep)
+    
+    return {
+        statusCode: 200,
+        body: JSON.stringify({
+            message: result ? validacao = true : validacao
+        })
+    }
+};

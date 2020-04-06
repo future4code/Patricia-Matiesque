@@ -48,6 +48,8 @@ export interface CreateShowUCInput {
     bandId: string
 }
 
+
+
 export interface CreateShowUCOutput {
     message: string;
 }

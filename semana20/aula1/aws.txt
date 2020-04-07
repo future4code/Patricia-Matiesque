@@ -1,0 +1,26 @@
+1. preciso clonar um repositorio dentro da maquina e build
+2. bouman-futureECommerce3
+3. ssh -i ec2-future4.pem ubuntu@54.86.100.27
+4. 
+git clone https://github.com/future4code/bouman-futureECommerce3 - Clonando projeto
+ls - Listando projetos
+cd bouman-futureECommerce3 - Entrando na pasta do projeto
+cd my-app - Entrando na pasta do projeto
+npm install - Instala os pacotes pendentes
+npm start - Rodando o projeto na 3000
+5. Feito
+6. 
+npm run build
+cd build/
+sudo python -mSimpleHTTPServer 80
+7. Clonamos o repositorio e não foi necessario criar portas, ja estavam habilitadas.
+
+
+2.
+1. Lido
+2. Feito
+3. Ativada
+4. 
+-A senha não aparecer demorei para compreender
+-No comando sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf nçao foi mencionado que precisava sair do banco para executar
+

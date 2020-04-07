@@ -1,0 +1,166 @@
+a. Entendi
+b. {
+  "statusCode": 400,
+  "body": "{\"message\":\"Missing input\"}"
+}
+c. {
+  "statusCode": 400,
+  "body": "{\"message\":\"Missing input\"}"
+}
+d.{
+  "statusCode": 400,
+  "body": "{\"message\":\"Missing email\"}"
+}
+e.{
+  "statusCode": 400,
+  "body": "{\"message\":\"Invalid password\"}"
+}
+f.{
+  "statusCode": 200,
+  "body": "{\"message\":\"User is correct\"}"
+}
+g.
+  }else if (user.email.indexOf('@') === -1) {
+    return {
+      statusCode: 422,
+      body: JSON.stringify({ message: "Missing @" })
+    };
+  }
+{
+  "statusCode": 422,
+  "body": "{\"message\":\"Missing @\"}"
+}
+h.
+{
+  "user": {
+		"info": {
+			"name": "Astrodev",
+			"email": "astrodev@f4.com.br",
+			"password": "123456"
+		}
+  }
+}
+
+2. 
+exports.myFunc = async (event) => {
+    const response = {
+        statusCode: 200,
+        body: JSON.stringify({
+            message: `Olá mundo, sou uma mensagem da AWS`}
+            ),
+    };
+    return response;
+};
+exports.myFunc = async (event) => {
+    const response = {
+        statusCode: 200,
+        body: JSON.stringify({
+            message: event.message}
+            ),
+    };
+    return response;
+};
+
+3.
+exports.myFunc = async (event) => {
+    const response = {
+        statusCode: 200,
+        body: JSON.stringify(event.a + event.b),
+    };
+    return response;
+};
+
+4.
+exports.handler = async event => {
+    let isEmail = false
+    let reason = ""
+    if(!event.email){
+        return {
+            statusCode: 400,
+            body: JSON.stringify({
+                isEmail,
+                reason: "não existe"
+            })
+        }
+    }
+    if(event.email.indexOf("@") === -1){
+        return {
+            statusCode: 422,
+            body: JSON.stringify({
+                isEmail,
+                reason: "não possui @"
+            })
+        }
+    }
+    if(event.email.indexOf(".") === -1){
+        return {
+            statusCode: 422,
+            body: JSON.stringify({
+                isEmail,
+                reason: "não possui ."
+            })
+        }
+    }
+    return {
+        statusCode: 200,
+        body: JSON.stringify({
+            isEmail: true
+        })
+    };
+};
+
+
+5.
+const knex = require("knex");
+const {v4} = require('uuid');
+
+const connection = knex({
+    client: "mysql",
+    connection: {
+      host: process.env.host,
+      port: 3306,
+      user: process.env.user,
+      password: process.env.password,
+      database: process.env.database
+    }
+  });
+
+  exports.handler = async event => {
+    const id = v4();
+    const result = await connection.raw(`
+    insert into Personagens (id, nome, nomeDesenho, imagem)
+    values ("${id}", "${event.nome}", "${event.nomeDesenho}", "${event.imagem}");
+    `)
+    if(!event.nome)
+     return{
+        statusCode:400,
+        body: JSON.stringify(undefined)
+    }
+    if(!event.nomeDesenho)
+     return{
+        statusCode:400,
+        body: JSON.stringify(undefined)
+    }
+    if(!event.imagem)
+     return{
+        statusCode:400,
+        body: JSON.stringify(undefined)
+    }
+    
+     return {
+        statusCode:200,
+        body: JSON.stringify({
+            message: "Criada com sucesso"
+        })
+    }
+  }
+
+
+
+
+
+
+
+
+
+

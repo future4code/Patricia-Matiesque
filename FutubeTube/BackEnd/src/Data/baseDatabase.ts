@@ -1,6 +1,6 @@
 import knex from "knex";
 
-export abstract class BaseDatabase {
+export abstract class BaseDB {
   private connectionData = {
     host: process.env.HOST,
     port: 3306,

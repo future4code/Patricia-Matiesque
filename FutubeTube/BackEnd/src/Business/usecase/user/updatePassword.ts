@@ -2,21 +2,21 @@ import { UserGateway } from "../../gateway/userGateway";
 import { AuthenticationGateway } from "../../gateway/authenticationGateway";
 import { CryptographyGateway } from "../../gateway/cryptographyGateway";
 
-export class LoginUserUC {
+export class UpdatePasswordUC {
   constructor(
     private userGateway: UserGateway,
     private authenticationGateway: AuthenticationGateway,
     private cryptographyGateway: CryptographyGateway
   ) { }
 
-  public async execute(input: LoginUserUCInput) {
-    const user = await this.userGateway.getUserByEmail(input.email);
+  public async execute(input: UpdatePasswordUCInput): Promise<UpdatePasswordUCOutput> {
+    const user = await this.userGateway.updatePassword(input.newpassword, input.email);
 
-    if (!user) {
+    if (!input.email) {
       throw new Error("Incorrect Password or Email");
     }
 
-    if (!await this.cryptographyGateway.compare(input.password, user.getPassword())) {
+    if (!await this.cryptographyGateway.compare(input.oldpassword, user.getPassword())) {
       throw new Error("Incorrect Password or Email")
     }
 
@@ -24,10 +24,18 @@ export class LoginUserUC {
       id: user.getId()
     });
 
-    return token;
+    return {
+        message: "Password changed"
+      };;
   }
 }
-export interface LoginUserUCInput {
+
+export interface UpdatePasswordUCInput {
   email: string;
-  password: string;
+  newpassword: string;
+  oldpassword: string;
 }
+
+export interface UpdatePasswordUCOutput {
+    message: string;
+  }

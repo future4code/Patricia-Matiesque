@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { UserDB } from "../../../data/userDataBase";
 import { JwtAuthorizer } from "../../../services/jwtAuthorizer";
 import { BcryptService } from "../../../services/bcryptService";
-import { CreateUserUC } from "../../../Business/usecase/user/createUser";
+import { CreateUserUC } from "../../../business/usecase/user/createUser";
 
 export const createUserEndpoint = async (req: Request, res: Response) => {
   try {

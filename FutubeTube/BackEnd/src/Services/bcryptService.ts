@@ -1,4 +1,4 @@
-import { CryptographyGateway } from "../Business/gateway/cryptographyGateway";
+import { CryptographyGateway } from "../business/gateway/cryptographyGateway";
 import * as bcrypt from "bcrypt";
 
 export class BcryptService implements CryptographyGateway {

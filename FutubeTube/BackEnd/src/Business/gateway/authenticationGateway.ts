@@ -4,5 +4,5 @@ export interface AuthenticationGateway {
 }
 
 export interface UsersInfoForToken {
-  userId: string;
+  id: string;
 }

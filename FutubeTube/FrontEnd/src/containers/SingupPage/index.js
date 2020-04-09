@@ -24,6 +24,7 @@ class SignupPage extends Component {
     event.preventDefault();
     const { name, email, birthday, image, password } = this.state
     this.props.signup(name, email, birthday, image, password)
+    console.log("oi")
   }
 
   render() {
@@ -33,33 +34,47 @@ class SignupPage extends Component {
             <h2>Criar Nova Conta</h2>
 
             <form onSubmit={this.handleSubmit}>
+              <label>Nome</label>
               <input
-                label="Nome de Usuário"
                 type="text"
                 name="name"
                 value={this.state.name}
                 onChange={this.handleChange}
               />
+               <br />
+                <label>email</label>
               <input
-                label="E-mail"
                 type="email"
                 name="email"
                 value={this.state.email}
                 onChange={this.handleChange}
               />
+                <br />
+                 <label>birthday</label>
               <input
-                label="Password"
+                type="text"
+                name="birthday"
+                value={this.state.birthday}
+                onChange={this.handleChange}
+              />
+                <br />
+                 <label>image</label>
+              <input
+                type="text"
+                name="image"
+                value={this.state.image}
+                onChange={this.handleChange}
+              />
+                <br />
+                <label>Password</label>
+              <input
                 name="password"
                 type="password"
                 value={this.state.password}
                 onChange={this.handleChange}
               />
-              <button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-              >
+                <br />
+              <button>
                 Cadastrar
             </button>
             </form>

@@ -1,7 +1,7 @@
 import {
   AuthenticationGateway,
   UsersInfoForToken
-} from "../Business/gateway/authenticationGateway";
+} from "../business/gateway/authenticationGateway";
 import * as jwt from "jsonwebtoken";
 
 export class JwtAuthorizer implements AuthenticationGateway {
@@ -11,7 +11,7 @@ export class JwtAuthorizer implements AuthenticationGateway {
   public generateToken(input: UsersInfoForToken): string {
     const token = jwt.sign(
       {
-        userId: input.userId,
+        userId: input.id,
       },
       this.SECRET_KEY,
       {
@@ -25,7 +25,8 @@ export class JwtAuthorizer implements AuthenticationGateway {
   public getUsersInfoFromToken(token: string): UsersInfoForToken {
     const result = jwt.verify(token, this.SECRET_KEY) as UsersInfoForToken; // userId, type
     return {
-      userId: result.userId,
+      id: result.id,
     };
   }
 }
+ 

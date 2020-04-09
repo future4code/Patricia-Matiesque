@@ -1,10 +1,10 @@
-import { BaseDB } from "./baseDataBase";
+import { BaseDB } from "./baseDatabase";
 import { User } from "../business/entities/user";
-import { UserGateway } from "../Business/gateway/userFateway";
-import { DuplicateUserError } from "../Business/error/DuplicateUserError";
+import { UserGateway } from "../business/gateway/userGateway";
+import { DuplicateUserError } from "../business/error/DuplicateUserError";
 
 export class UserDB extends BaseDB implements UserGateway {
-    private userTableName = "users";
+    private userTableName = "Users";
 
 
     async createUser(user: User) {
@@ -45,6 +45,7 @@ export class UserDB extends BaseDB implements UserGateway {
             user[0].image,
             user[0].password
         )
+        console.log(user)
     }
 
     public async getUserByEmail(email: string): Promise<User | undefined> {
@@ -65,6 +66,16 @@ export class UserDB extends BaseDB implements UserGateway {
           result[0][0].image,
           result[0][0].password
         );
+        console.log(result)
+
       }
+
+    public async updatePassword(password: string, email: string): Promise<void> {
+        await this.connection.raw(`
+        UPDATE ${this.userTableName} 
+        SET password = '${password}'
+        WHERE email = '${email}';
+      `);
+    }
 
 }

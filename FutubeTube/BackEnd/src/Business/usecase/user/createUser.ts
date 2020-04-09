@@ -1,9 +1,10 @@
-import { v4 } from "uuid";
-import { User } from "../../entities/user";
-import { UserGateway } from "../../gateway/userFateway";
+import { UserGateway } from "../../gateway/userGateway";
 import { AuthenticationGateway } from "../../gateway/authenticationGateway";
 import { CryptographyGateway } from "../../gateway/cryptographyGateway";
+import { v4 } from "uuid";
 import { MinimumCharacterError } from "../../error/MinimumCharacterError";
+import { User } from "../../entities/user";
+
 
 export class CreateUserUC {
   constructor(
@@ -25,11 +26,11 @@ export class CreateUserUC {
       await this.userGateway.createUser(user);
     
       const token = this.authenticationGateway.generateToken({
-        userId: user.getId()
+        id: user.getId()
       })
-  
+   
       return {
-        message: "User created successfully" + token
+        message: "User created successfully " + token
       };
   }
 }

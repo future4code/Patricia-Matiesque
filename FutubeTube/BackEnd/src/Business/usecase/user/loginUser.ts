@@ -10,7 +10,7 @@ export class LoginUserUC {
   ) { }
 
   public async execute(input: LoginUserUCInput) {
-    const user = await this.userGateway.getUserByEmail(input.email);
+    const user = await this.userGateway.loginUser(input.email);
 
     if (!user) {
       throw new Error("Incorrect Password or Email");

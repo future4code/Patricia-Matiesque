@@ -10,32 +10,36 @@ export class UpdatePasswordUC {
   ) { }
 
   public async execute(input: UpdatePasswordUCInput): Promise<UpdatePasswordUCOutput> {
-    const user = await this.userGateway.updatePassword(input.newpassword, input.email);
-
-    if (!input.email) {
-      throw new Error("Incorrect Password or Email");
+    const userInfo = await this.authenticationGateway.getUsersInfoFromToken(input.token)
+    if (!userInfo) {
+      throw new Error("User not found!")
     }
 
-    if (!await this.cryptographyGateway.compare(input.oldpassword, user.getPassword())) {
-      throw new Error("Incorrect Password or Email")
+    const user = await this.userGateway.getUserById(userInfo.id)
+    if (!user) {
+      throw new Error("User not found!")
     }
 
-    const token = this.authenticationGateway.generateToken({
-      id: user.getId()
-    });
+    const oldPassword = await this.cryptographyGateway.compare(input.oldPassword, user.getPassword());
+    if (!oldPassword) {
+      throw new Error("Invalid password or email!");
+    };
+
+    const newPassword = await this.cryptographyGateway.encrypt(input.newPassword)
+    await this.userGateway.updatePassword(userInfo.id, newPassword)
 
     return {
-        message: "Password changed"
-      };;
+      message: "Password updated successfully!"
+    }
   }
 }
 
 export interface UpdatePasswordUCInput {
-  email: string;
-  newpassword: string;
-  oldpassword: string;
+  token: string;
+  newPassword: string;
+  oldPassword: string;
 }
 
 export interface UpdatePasswordUCOutput {
-    message: string;
-  }
+  message: string;
+}

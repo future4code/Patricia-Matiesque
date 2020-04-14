@@ -6,7 +6,6 @@ import { DuplicateUserError } from "../business/error/DuplicateUserError";
 export class UserDB extends BaseDB implements UserGateway {
     private userTableName = "Users";
 
-
     async createUser(user: User) {
         try {
             await this.connection
@@ -37,6 +36,7 @@ export class UserDB extends BaseDB implements UserGateway {
         if (!user[0]) {
             return undefined;
         }
+
         return new User(
             user[0].id,
             user[0].name,
@@ -45,19 +45,18 @@ export class UserDB extends BaseDB implements UserGateway {
             user[0].image,
             user[0].password
         )
-        console.log(user)
     }
 
-    public async getUserByEmail(email: string): Promise<User | undefined> {
+    public async getUserById(id: string): Promise<User | undefined> {
         const result = await this.connection.raw(`
           SELECT * FROM ${this.userTableName} 
-          WHERE email = '${email}'
+          WHERE id = '${id}'
         `);
     
         if (!result[0][0]) {
           return undefined;
         }
-    
+
         return new User(
           result[0][0].id,
           result[0][0].name,
@@ -66,15 +65,14 @@ export class UserDB extends BaseDB implements UserGateway {
           result[0][0].image,
           result[0][0].password
         );
-        console.log(result)
-
       }
 
-    public async updatePassword(password: string, email: string): Promise<void> {
+
+    public async updatePassword(password: string, id: string): Promise<void> {
         await this.connection.raw(`
         UPDATE ${this.userTableName} 
         SET password = '${password}'
-        WHERE email = '${email}';
+        WHERE id = '${id}';
       `);
     }
 

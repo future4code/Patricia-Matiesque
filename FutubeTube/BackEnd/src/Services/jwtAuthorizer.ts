@@ -11,7 +11,7 @@ export class JwtAuthorizer implements AuthenticationGateway {
   public generateToken(input: UsersInfoForToken): string {
     const token = jwt.sign(
       {
-        userId: input.id,
+        id: input.id,
       },
       this.SECRET_KEY,
       {
@@ -23,10 +23,9 @@ export class JwtAuthorizer implements AuthenticationGateway {
   }
 
   public getUsersInfoFromToken(token: string): UsersInfoForToken {
-    const result = jwt.verify(token, this.SECRET_KEY) as UsersInfoForToken; // userId, type
+    const result = jwt.verify(token, this.SECRET_KEY) as UsersInfoForToken; 
     return {
       id: result.id,
     };
   }
 }
- 

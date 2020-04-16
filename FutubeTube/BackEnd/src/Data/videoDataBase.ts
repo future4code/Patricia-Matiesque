@@ -74,7 +74,16 @@ export class VideoDB extends BaseDB implements VideoGateway {
             return undefined;
         };
 
-        return result[0][0]
+        return new FeedVideos(
+            result[0][0].id,
+            result[0][0].title,
+            result[0][0].link,
+            result[0][0].description,
+            result[0][0].createDate,
+            result[0][0].userId,
+            result[0][0].name,
+            result[0][0].image
+        )
     }
 
     public async deleteVideo(id: string, userId: string): Promise<void>{

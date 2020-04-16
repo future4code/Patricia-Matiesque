@@ -63,7 +63,7 @@ export class VideoDB extends BaseDB implements VideoGateway {
 
     public async getVideoById(id: string): Promise<FeedVideos | undefined>{
         const result = await this.connection.raw(`
-            SELECT v.*, u.name
+            SELECT v.*, u.name, u.image
             FROM ${this.videoTableName} v
             JOIN ${this.userTableName} u
             ON u.id = v.userId
@@ -83,5 +83,34 @@ export class VideoDB extends BaseDB implements VideoGateway {
             WHERE id = '${id}' AND userId = '${userId}';
         `)
     }
+
+    public async getFeedVideos(): Promise<FeedVideos[] | undefined>{
+        const videos = await this.connection.raw(`
+            SELECT v.*, u.name, u.image
+            FROM ${this.videoTableName} v
+            JOIN ${this.userTableName} u
+            ON v.userId = u.id
+        `);
+
+        if(!videos[0][0]){
+            return undefined;
+        }; 
+
+        return await videos[0].map((video: any) => {
+            return new FeedVideos(
+                video.id,
+                video.title,
+                video.link,
+                video.description,
+                video.createDate,
+                video.userId,
+                video.name,
+                video.image
+            );
+        }); 
+    };
+
+    
+
 
 }

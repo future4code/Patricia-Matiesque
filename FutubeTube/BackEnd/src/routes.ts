@@ -3,9 +3,11 @@ import { createUserEndpoint } from "./presentation/endpoints/user/createUser";
 import { loginUserEndpoint } from "./presentation/endpoints/user/loginUser";
 import { updatePasswordEndpoint } from "./presentation/endpoints/user/updatePassword";
 import { createVideoEndpoint } from "./presentation/endpoints/video/createVideo";
-import { getFeedForVideosEndpoint } from "./presentation/endpoints/video/getVideos";
+import { getAllVideosUserByIdEndpoint } from "./presentation/endpoints/video/getAllVideosUserByIdUC";
 import { updateVideoEndpoint } from "./presentation/endpoints/video/updateVideo";
 import { deleteVideoEndpoint } from "./presentation/endpoints/video/deleteVideo";
+import { feedOfVideosEndpoint } from "./presentation/endpoints/video/feedOfVideos";
+import { getVideoDetailEndpoint } from "./presentation/endpoints/video/getVideoDetail";
 
 
 const app = express();
@@ -16,8 +18,11 @@ app.post("/user/login", loginUserEndpoint);
 app.post("/user/password", updatePasswordEndpoint);
 
 app.post("/video/create", createVideoEndpoint);
-app.get("/video/user", getFeedForVideosEndpoint);
+app.get("/video/user", getAllVideosUserByIdEndpoint);
 app.post("/video/update/:id", updateVideoEndpoint);
 app.delete("/video/delete/:id", deleteVideoEndpoint);
+app.get("/feed", feedOfVideosEndpoint)
+app.get("/video/detail/:id", getVideoDetailEndpoint);
+
 
 export default app;

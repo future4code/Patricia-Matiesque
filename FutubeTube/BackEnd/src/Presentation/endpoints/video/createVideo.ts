@@ -7,15 +7,17 @@ export const createVideoEndpoint = async (req: Request, res: Response) => {
   try {
     const createVideoUC = new CreateVideoUC(
       new VideoDB(),
+      new JwtAuthorizer()
     );
-    const jwtAuthorizer = new JwtAuthorizer();
-    const userId = jwtAuthorizer.getUsersInfoFromToken(req.headers.auth as string);
+
+    const auth = req.headers.Authorization || req.headers.authorization
 
     const result = await createVideoUC.execute({
       title: req.body.title,
       link: req.body.link,
       description: req.body.description,
-      userId: userId.id,
+      token: auth as string,
+
     });
 
     res.status(200).send(result);

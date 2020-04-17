@@ -22,11 +22,11 @@ export class UpdatePasswordUC {
 
     const oldPassword = await this.cryptographyGateway.compare(input.oldPassword, user.getPassword());
     if (!oldPassword) {
-      throw new Error("Invalid password or email!");
+      throw new Error("Invalid password!");
     };
 
     const newPassword = await this.cryptographyGateway.encrypt(input.newPassword)
-    await this.userGateway.updatePassword(userInfo.id, newPassword)
+    await this.userGateway.updatePassword(newPassword, userInfo.id)
 
     return {
       message: "Password updated successfully!"
@@ -36,8 +36,8 @@ export class UpdatePasswordUC {
 
 export interface UpdatePasswordUCInput {
   token: string;
-  newPassword: string;
   oldPassword: string;
+  newPassword: string;
 }
 
 export interface UpdatePasswordUCOutput {

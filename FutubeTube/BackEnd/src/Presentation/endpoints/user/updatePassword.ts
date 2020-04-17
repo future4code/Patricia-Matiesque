@@ -11,15 +11,20 @@ export const updatePasswordEndpoint = async (req: Request, res: Response) => {
     new BcryptService()
   );
 
-  try {
-    const token = await updatePasswordUC.execute({
-      token: req.headers.auth as string,
-      newPassword: req.body.newPassword,
-      oldPassword: req.body.oldPassword
 
+  try {
+    const auth = req.headers.Authorization || req.headers.authorization
+
+    if(!auth){
+      throw new Error("You need a Token to use this enpoint")
+
+    }
+    const result = await updatePasswordUC.execute({
+      token: auth as string,
+      oldPassword: req.body.oldPassword,
+      newPassword: req.body.newPassword
     });
-    console.log("token", token)
-    res.send({ message: "User successfully logged in", token });
+    res.status(200).send(result);
   } catch (err) {
     res.status(400).send({
       message: err.message,

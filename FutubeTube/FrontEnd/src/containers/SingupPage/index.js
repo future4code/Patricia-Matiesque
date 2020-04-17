@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import { signup } from "../../action/login";
+
 
 class SignupPage extends Component {
   constructor(props) {
@@ -9,7 +11,7 @@ class SignupPage extends Component {
       name: "",
       email: "",
       birthday:"",
-      image: "",
+      photo: "",
       password: "",
     }
   }
@@ -22,9 +24,8 @@ class SignupPage extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { name, email, birthday, image, password } = this.state
-    this.props.signup(name, email, birthday, image, password)
-    console.log("oi")
+    const { name, email, birthday, photo, password } = this.state
+    this.props.signup(name, email, birthday, photo, password)
   }
 
   render() {
@@ -58,11 +59,11 @@ class SignupPage extends Component {
                 onChange={this.handleChange}
               />
                 <br />
-                 <label>image</label>
+                 <label>photo</label>
               <input
                 type="text"
-                name="image"
-                value={this.state.image}
+                name="photo"
+                value={this.state.photo}
                 onChange={this.handleChange}
               />
                 <br />
@@ -84,6 +85,7 @@ class SignupPage extends Component {
 }
  
 const mapDispatchToProps = dispatch => ({
+  signup: (name, email, birthday, photo, password) => dispatch(signup(name, email, birthday, photo, password)),
 
 });
 

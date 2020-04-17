@@ -8,9 +8,11 @@ import { updateVideoEndpoint } from "./presentation/endpoints/video/updateVideo"
 import { deleteVideoEndpoint } from "./presentation/endpoints/video/deleteVideo";
 import { feedOfVideosEndpoint } from "./presentation/endpoints/video/feedOfVideos";
 import { getVideoDetailEndpoint } from "./presentation/endpoints/video/getVideoDetail";
-
+import cors from 'cors';
 
 const app = express();
+app.use(cors());
+
 app.use(express.json()); // Linha mágica (middleware)
 
 app.post("/user/create", createUserEndpoint);
@@ -23,6 +25,5 @@ app.post("/video/update/:id", updateVideoEndpoint);
 app.delete("/video/delete/:id", deleteVideoEndpoint);
 app.get("/feed", feedOfVideosEndpoint)
 app.get("/video/detail/:id", getVideoDetailEndpoint);
-
 
 export default app;

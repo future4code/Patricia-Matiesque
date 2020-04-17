@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import { login } from "../../action/login"
 
-class SignupPage extends Component {
+class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
+      email: "",
       password: "",
     }
   }
@@ -19,8 +20,8 @@ class SignupPage extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { name, email } = this.state
-    this.props.signup(name, email)
+    const { email, password } = this.state
+    this.props.login(email, password)
   }
 
   render() {
@@ -46,11 +47,8 @@ class SignupPage extends Component {
               />
               <button
                 type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
               >
-                Cadastrar
+                Acessar
             </button>
             </form>
           </div>
@@ -59,7 +57,7 @@ class SignupPage extends Component {
 }
  
 const mapDispatchToProps = dispatch => ({
-
+  login: (email, password) => dispatch(login(email, password)),
 });
 
-export default connect(null, mapDispatchToProps)(SignupPage);
+export default connect(null, mapDispatchToProps)(LoginPage);

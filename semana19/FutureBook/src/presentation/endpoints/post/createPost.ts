@@ -15,7 +15,7 @@ export const createPostEndpoint = async (req: Request, res: Response) => {
       postType: req.body.postType,
       userId: userId.userId,
     }
-
+ 
     await createPostUC.execute(input);
 
     res.send({
